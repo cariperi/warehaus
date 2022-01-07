@@ -1,12 +1,26 @@
 <h1>Items Inventory</h1>
 
-<% @items.each do |item| %>
-  <div>
-    <p>Item Name: <%= item.name %> </p>
-    <p>UPC: <%= item.upc %> </p>
-    <p>Quantity in stock: <%= item.quantity %> </p>
-    <p>Price($): <%= (item.price)/100 %> </p>
-    <p>Description: <%= item.description %> </p>
-    <p>Weight(g): <%= item.weight %></p>
-  </div>
-<% end %>
+<table>
+  <thead>
+    <tr>
+      <th><%= link_to "Item Name", :sort => "name" %></th>
+      <th>UPC </th>
+      <th>Quantity Available </th>
+      <th>Price ($) </th>
+      <th>Weight (g) </th>
+      <th>Description </th>
+    </tr>
+  </thead>
+  <tbody>
+    <% @items.each do |item| %>
+      <tr>
+        <td><%= item.name %></td>
+        <td><%= item.upc %></td>
+        <td><%= item.quantity %></td>
+        <td><%= (item.price)/100 %></td>
+        <td><%= item.weight %></td>
+        <td><%= item.description %></td>
+      </tr>
+    <% end %>
+  </tbody>
+</table>

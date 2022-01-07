@@ -1,0 +1,12 @@
+<h1>Items Inventory</h1>
+
+<% @items.each do |item| %>
+  <div>
+    <p>Item Name: <%= item.name %> </p>
+    <p>UPC: <%= item.upc %> </p>
+    <p>Quantity in stock: <%= item.quantity %> </p>
+    <p>Price($): <%= (item.price)/100 %> </p>
+    <p>Description: <%= item.description %> </p>
+    <p>Weight(g): <%= item.weight %></p>
+  </div>
+<% end %>

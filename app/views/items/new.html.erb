@@ -1,6 +1,17 @@
 <h1>Add a New Item</h1>
 
 <%= form_with model: @item do |form| %>
+  <% if @item.errors.any? %>
+    <div style="color: red">
+    <h2><%= pluralize(@item.errors.count, "error") %> prohibited this item from being saved:</h2>
+      <ul>
+        <% @item.errors.each do |error| %>
+          <li><%= error.full_message %></li>
+        <% end %>
+      </ul>
+    </div>
+  <% end %>
+
   <%= form.label :name, "Item Name:" %>
   <%= form.text_field :name %> <br>
   <%= form.label :quantity, "Quantity:" %>

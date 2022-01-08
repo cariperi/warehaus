@@ -8,16 +8,16 @@ class ItemsController < ApplicationController
   end 
 
   def create
-    item = Item.new(item_params)
-    if item.valid?
-      item.save
-      flash[:success] = "#{item.name} item successfully created."
-      redirect_to items_path
-    else
-      flash[:error] = item.errors
-      redirect_to new_item_path
+    @item = Item.new(item_params)
+
+    respond_to do |format|
+      if @item.save 
+        format.html { redirect_to items_path, notice: "#{@item.name} item successfully created." }
+      else
+        format.html { render :new, status: :unprocessable_entity }
+      end
     end
-  end
+  end 
   
   private
   def item_params

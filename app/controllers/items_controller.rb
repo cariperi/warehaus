@@ -1,4 +1,5 @@
 class ItemsController < ApplicationController
+  helper ItemHelper
   def index
     @items = Item.all
   end
@@ -17,7 +18,11 @@ class ItemsController < ApplicationController
         format.html { render :new, status: :unprocessable_entity }
       end
     end
-  end 
+  end
+  
+  def show
+    @item = Item.find(params[:id])
+  end
   
   private
   def item_params

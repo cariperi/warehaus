@@ -5,6 +5,11 @@ class Item < ApplicationRecord
   validates :quantity, numericality: { only_integer: true, greater_than_or_equal_to: 0 }
   validates :price, :weight, numericality: { only_integer: true, greater_than: 0 }
 
+  def in_stock?
+    quantity > 0
+  end
+
+  private
   def upc_correct_length
     if upc.present? && upc.length != 12
       errors.add(:upc, "UPC length must be 12 digits.")

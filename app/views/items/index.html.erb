@@ -4,27 +4,29 @@
   <%= link_to "Add New Item", new_item_path %>
 </div>
 
-<table>
-  <thead>
-    <tr>
-      <th><%= link_to "Item Name", :sort => "name" %></th>
-      <th>UPC </th>
-      <th>Quantity Available </th>
-      <th>Price ($) </th>
-      <th>Weight (g) </th>
-      <th>Description </th>
-    </tr>
-  </thead>
-  <tbody>
-    <% @items.each do |item| %>
+<div>
+  <table>
+    <thead>
       <tr>
-        <td><%= item.name %></td>
-        <td><%= item.upc %></td>
-        <td><%= item.quantity %></td>
-        <td><%= (item.price)/100 %></td>
-        <td><%= item.weight %></td>
-        <td><%= item.description %></td>
+        <th><%= link_to "Item Name", :sort => "name" %></th>
+        <th>UPC </th>
+        <th>Quantity Available </th>
+        <th>Price </th>
+        <th>Weight </th>
+        <th>Description </th>
       </tr>
-    <% end %>
-  </tbody>
-</table>
+    </thead>
+    <tbody>
+      <% @items.each do |item| %>
+        <tr>
+          <td><%= link_to item.name, item_path(item.id) %></td>
+          <td><%= item.upc %></td>
+          <td><%= item.quantity %></td>
+          <td><%= format_price(item) %></td>
+          <td><%= format_weight(item) %></td>
+          <td><%= item.description %></td>
+        </tr>
+      <% end %>
+    </tbody>
+  </table>
+</div>

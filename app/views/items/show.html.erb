@@ -1,0 +1,26 @@
+<h1>Item Profile</h1>
+<ul class="unstyled_list">
+  <li>Name: <%= @item.name %></li>
+  <li>Description: <%= @item.description %></li>
+  <li>UPC: <%= @item.upc %></li>
+  <li>Weight: <%= format_weight(@item) %></li>
+</ul>
+
+<h2>Sales Details</h2>
+  <% if @item.in_stock? %>
+  <div style="color: green">
+    <p>Item is currently in stock.</p>
+  </div>
+  <% else %>
+  <div style="color: red">
+    <p>Item is currently out of stock.</p>
+  </div>
+  <% end %>
+<ul class="unstyled_list">
+  <li>Quantity Available: <%= @item.quantity %></li>
+  <li>Price: <%= format_price(@item) %></li>
+</ul>
+
+<div>
+  <%= link_to "Back to All Items", items_path %>
+</div>

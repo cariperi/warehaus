@@ -11,11 +11,11 @@ class ItemsController < ApplicationController
     item = Item.new(item_params)
     if item.valid?
       item.save
-      flash[:notice] = "#{item.name} item successfully created."
+      flash[:success] = "#{item.name} item successfully created."
       redirect_to items_path
     else
       flash[:error] = item.errors
-      render :new
+      redirect_to new_item_path
     end
   end
   

@@ -1,4 +1,7 @@
 <h1>Item Profile</h1>
+
+<p><%= link_to "Edit Item", edit_item_path(@item.id) %></p>
+
 <ul class="unstyled_list">
   <li>Name: <%= @item.name %></li>
   <li>Description: <%= @item.description %></li>
@@ -21,6 +24,4 @@
   <li>Price: <%= format_price(@item) %></li>
 </ul>
 
-<div>
-  <%= link_to "Back to All Items", items_path %>
-</div>
+<p><%= link_to "Back to All Items", items_path %></p>

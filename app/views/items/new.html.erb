@@ -1,0 +1,17 @@
+<h1>Add a New Item</h1>
+
+<%= form_with model: @item do |form| %>
+  <%= form.label :name, "Item Name:" %>
+  <%= form.text_field :name %> <br>
+  <%= form.label :quantity, "Quantity:" %>
+  <%= form.number_field :quantity, min: 0 %> <br>
+  <%= form.label :upc, "UPC:" %>
+  <%= form.text_field :upc %> <br>
+  <%= form.label :description, "Description:" %>
+  <%= form.text_area :description %> <br>
+  <%= form.label :price, "Price per Unit (cents):" %>
+  <%= form.number_field :price, min: 0 %> <br>
+  <%= form.label :weight, "Weight (grams):" %>
+  <%= form.number_field :weight, min: 0 %> <br>
+  <%= form.submit %>
+<% end %>

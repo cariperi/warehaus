@@ -14,6 +14,7 @@
         <th>Price </th>
         <th>Weight </th>
         <th>Description </th>
+        <th> </th>
       </tr>
     </thead>
     <tbody>
@@ -25,6 +26,7 @@
           <td><%= format_price(item) %></td>
           <td><%= format_weight(item) %></td>
           <td><%= item.description %></td>
+          <td><%= link_to "Edit", edit_item_path(item.id) %></td>
         </tr>
       <% end %>
     </tbody>

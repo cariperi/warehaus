@@ -1,6 +1,7 @@
 <h1>Item Profile</h1>
 
 <p><%= link_to "Edit Item", edit_item_path(@item.id) %></p>
+<p><%= button_to "Delete Item", @item, form: { data: {"turbo-confirm": "Are you sure you want to delete #{@item.name}?"}}, method: "delete" %></p>
 
 <ul class="unstyled_list">
   <li>Name: <%= @item.name %></li>

@@ -1,6 +1,6 @@
 class ItemsController < ApplicationController
   helper ItemHelper
-  before_action :find_item, only: [:show, :edit, :update]
+  before_action :find_item, only: [:show, :edit, :update, :destroy]
 
   def index
     @items = Item.all
@@ -35,6 +35,13 @@ class ItemsController < ApplicationController
       else
         format.html { render :edit, status: :unprocessable_entity }
       end
+    end
+  end
+
+  def destroy
+    @item.destroy
+    respond_to do |format|
+      format.html { redirect_to items_path, notice: "#{@item.name} deleted." }
     end
   end
 

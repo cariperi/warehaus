@@ -4,6 +4,9 @@ class ItemsController < ApplicationController
   before_action :find_item, only: [:show, :edit, :update, :destroy]
 
   def index
+    if params[:search]
+      search_items
+    end
     @items = Item.order(sort_column + ' ' + sort_direction)
   end
 
@@ -61,5 +64,11 @@ class ItemsController < ApplicationController
 
   def sort_direction
     %w[asc desc].include?(params[:direction]) ? params[:direction] : "asc"
+  end
+
+  def search_items
+    if @item = Item.all.find{ |item| item.name.downcase.include?((params[:search]).downcase) }
+      redirect_to item_path(@item)
+    end
   end
 end

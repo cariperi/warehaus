@@ -5,5 +5,11 @@ module ItemHelper
 
   def format_weight(item)
     number_to_human(item.weight, units: {unit: "g", thousand: "kg"})
-  end 
+  end
+  
+  def sortable_column(column, header = nil)
+    header ||= column.titleize
+    direction = (column == sort_column && sort_direction == "asc") ? "desc" : "asc"
+    link_to header, :sort => column, :direction => direction
+  end
 end

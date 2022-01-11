@@ -1,4 +1,5 @@
-<h1>Items Inventory</h1>
+<h1>Product Inventory</h1>
+<p>As of <%= format_time(Time.now) %></p>
 
 <div>
   <%= link_to "Add New Item", new_item_path %>
@@ -8,11 +9,11 @@
   <table>
     <thead>
       <tr>
-        <th><%= link_to "Item Name", :sort => "name" %></th>
+        <th><%= sortable_column "name", "Item Name" %></th>
         <th>UPC </th>
-        <th>Quantity Available </th>
-        <th>Price </th>
-        <th>Weight </th>
+        <th><%= sortable_column "quantity", "Quantity Available" %></th>
+        <th><%= sortable_column "price" %></th>
+        <th><%= sortable_column "weight" %></th>
         <th>Description </th>
         <th> </th>
       </tr>

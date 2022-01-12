@@ -4,10 +4,10 @@ class ItemsController < ApplicationController
   before_action :find_item, only: [:show, :edit, :update, :destroy]
 
   def index
-    if params[:search]
-      search_items
-    end
+    @tags = selected_tags()
     @items = Item.order(sort_column + ' ' + sort_direction)
+    @items = @items.with_tags(params[:tags]) if params[:tags]
+    @items = @items.search_items(params[:search]) if params[:search]
   end
 
   def new
@@ -66,9 +66,11 @@ class ItemsController < ApplicationController
     %w[asc desc].include?(params[:direction]) ? params[:direction] : "asc"
   end
 
-  def search_items
-    if @item = Item.all.find{ |item| item.name.downcase.include?((params[:search]).downcase) }
-      redirect_to item_path(@item)
+  def selected_tags
+    selected_tags = request.query_parameters["tags"] || []
+    Tag.all.map do |tag|
+      active = selected_tags.include?(tag.id.to_s)
+      {text: tag.text, id: tag.id, active: active}
     end
   end
 end

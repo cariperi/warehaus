@@ -10,6 +10,6 @@ module ItemHelper
   def sortable_column(column, header = nil)
     header ||= column.titleize
     direction = (column == sort_column && sort_direction == "asc") ? "desc" : "asc"
-    link_to header, :sort => column, :direction => direction
+    link_to header, request.query_parameters.merge({sort: column, direction: direction})
   end
 end

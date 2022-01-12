@@ -12,6 +12,14 @@ class Item < ApplicationRecord
     quantity > 0
   end
 
+  def self.with_tags(tag_ids)
+    joins(:tags).where("tags.id in (?)", tag_ids).distinct
+  end
+
+  def self.search_items(search)
+    where("name ilike ?", "%#{search}%")
+  end
+
   private
   def upc_correct_length
     if upc.present? && upc.length != 12

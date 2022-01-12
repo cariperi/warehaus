@@ -1,4 +1,7 @@
 class Item < ApplicationRecord
+  has_many :items_tags
+  has_many :tags, through: :items_tags
+
   validates :name, :upc, presence: true, uniqueness: true
   validate :upc_correct_length
   validates :description, presence: true

@@ -1,3 +1,7 @@
+tags = (1..5).map do |i|
+  Tag.create({ text: Faker::Commerce.unique.color })
+end
+
 10.times do |i|
   Item.create({
     name: Faker::Commerce.unique.product_name,
@@ -6,5 +10,6 @@
     description: "A test description.",
     price: Faker::Number.number(digits: 4),
     weight: Faker::Number.number(digits: 6),
+    tags: tags.sample(Random.rand(1..3))
   })
 end 

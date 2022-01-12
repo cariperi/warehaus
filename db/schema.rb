@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2022_01_08_001820) do
+ActiveRecord::Schema.define(version: 2022_01_12_014452) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -28,4 +28,22 @@ ActiveRecord::Schema.define(version: 2022_01_08_001820) do
     t.index ["upc"], name: "index_items_on_upc"
   end
 
+  create_table "items_tags", force: :cascade do |t|
+    t.bigint "item_id", null: false
+    t.bigint "tag_id", null: false
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
+    t.index ["item_id"], name: "index_items_tags_on_item_id"
+    t.index ["tag_id"], name: "index_items_tags_on_tag_id"
+  end
+
+  create_table "tags", force: :cascade do |t|
+    t.string "text"
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
+    t.index ["text"], name: "index_tags_on_text"
+  end
+
+  add_foreign_key "items_tags", "items"
+  add_foreign_key "items_tags", "tags"
 end

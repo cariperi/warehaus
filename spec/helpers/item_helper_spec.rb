@@ -7,11 +7,11 @@ RSpec.describe ItemHelper do
   let(:weight_kilograms) { Item.new({weight: 2000}) }
 
   it "formats price less than a dollar" do
-    expect(format_price(price_cents)).to eq("$0.50")
+    expect(format_price(price_cents.price)).to eq("$0.50")
   end
 
   it "formats price greater than a dollar" do
-    expect(format_price(price_dollars)).to eq("$10.00")
+    expect(format_price(price_dollars.price)).to eq("$10.00")
   end
 
   it "formats weights less than a kilogram" do

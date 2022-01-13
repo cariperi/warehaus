@@ -13,6 +13,13 @@
       <%= label_tag(tag[:text]) %>
       <%= check_box_tag("tags[]", tag[:id], tag[:active]) %>
     <% end %>
+    <%= label_tag("Price") %>
+    <%= label_tag(:min_price, "Minimum Price") %>
+    <%= text_field_tag(:min_price, format_price(@min_price)) %>
+    <%= label_tag(:max_price, "Maximum Price") %>
+    <%= text_field_tag(:max_price, format_price(@max_price)) %>
+    <%= label_tag("In Stock?") %>
+    <%= check_box_tag(:in_stock) %> <br>
     <%= submit_tag ("Filter") %>
   <% end %>
   <%= link_to "Clear", items_path %>
@@ -37,7 +44,7 @@
           <td><%= link_to item.name, item_path(item.id) %></td>
           <td><%= item.upc %></td>
           <td><%= item.quantity %></td>
-          <td><%= format_price(item) %></td>
+          <td><%= format_price(item.price) %></td>
           <td><%= format_weight(item) %></td>
           <td><%= item.description %></td>
           <td><%= link_to "Edit", edit_item_path(item.id) %></td>

@@ -22,7 +22,7 @@
   <% end %>
 <ul class="unstyled_list">
   <li>Quantity Available: <%= @item.quantity %></li>
-  <li>Price: <%= format_price(@item) %></li>
+  <li>Price: <%= format_price(@item.price) %></li>
 </ul>
 
 <p><%= link_to "Back to All Items", items_path %></p>

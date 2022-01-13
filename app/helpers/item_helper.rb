@@ -1,6 +1,6 @@
 module ItemHelper
-  def format_price(item)
-    Money.new(item.price, "USD").format(symbol: true)
+  def format_price(price)
+    Money.new(price, "USD").format(symbol: true)
   end
 
   def format_weight(item)

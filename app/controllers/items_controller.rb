@@ -2,12 +2,15 @@ class ItemsController < ApplicationController
   helper ItemHelper
   helper_method :sort_column, :sort_direction
   before_action :find_item, only: [:show, :edit, :update, :destroy]
+  before_action :set_min_max, only: :index
 
   def index
     @tags = selected_tags()
     @items = Item.order(sort_column + ' ' + sort_direction)
-    @items = @items.with_tags(params[:tags]) if params[:tags]
-    @items = @items.search_items(params[:search]) if params[:search]
+    @items = @items.with_tags(filter_params[:tags]) if filter_params[:tags]
+    @items = @items.search_items(filter_params[:search]) if filter_params[:search]
+    @items = @items.in_price_range(@min_price, @max_price) if (filter_params[:min_price] || filter_params[:max_price])
+    @items = @items.is_available if filter_params[:in_stock]
   end
 
   def new
@@ -54,6 +57,10 @@ class ItemsController < ApplicationController
     params.require(:item).permit(:name, :quantity, :upc, :description, :price, :weight)
   end
 
+  def filter_params
+    params.permit(:min_price, :max_price, :search, :tags, :in_stock)
+  end
+
   def find_item
     @item = Item.find(params[:id])
   end
@@ -64,6 +71,21 @@ class ItemsController < ApplicationController
 
   def sort_direction
     %w[asc desc].include?(params[:direction]) ? params[:direction] : "asc"
+  end
+
+  def set_min_max
+    @min_price =
+      if filter_params[:min_price]
+        filter_params[:min_price].tr("$.", "").to_i
+      else
+        Item.minimum(:price)
+      end
+    @max_price =
+      if filter_params[:max_price]
+        filter_params[:max_price].tr("$.", "").to_i
+      else
+        Item.maximum(:price)
+      end
   end
 
   def selected_tags

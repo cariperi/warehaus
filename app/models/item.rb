@@ -20,6 +20,14 @@ class Item < ApplicationRecord
     where("name ilike ?", "%#{search}%")
   end
 
+  def self.in_price_range(min_price, max_price)
+    where("price >= ? and price <= ?", min_price, max_price)
+  end
+  
+  def self.is_available
+    where("quantity > ?", 0)
+  end
+
   private
   def upc_correct_length
     if upc.present? && upc.length != 12

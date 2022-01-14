@@ -14,7 +14,7 @@ class ItemsController < ApplicationController
     if filter_params
       @items = @items.with_tags(@filter_form.active_tags) if @filter_form.active_tags.present?
       @items = @items.search_items(@filter_form.search) if @filter_form.search
-      @items = @items.in_price_range(@filter_form.min_price, @filter_form.max_price) if @filter_form.has_prices?
+      @items = @items.in_price_range(@filter_form.min_cents, @filter_form.max_cents) if @filter_form.has_prices?
       @items = @items.is_available if @filter_form.in_stock
     end
   end

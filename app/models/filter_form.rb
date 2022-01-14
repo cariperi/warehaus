@@ -1,13 +1,14 @@
 class FilterForm
   include ActiveModel::Model
+  include ItemHelper
 
   attr_accessor :search, :tags, :min_price, :max_price, :in_stock
 
   def initialize(params={})
     @search = params[:search]
     @tags = build_tags(params[:tags] || [])
-    @min_price = params[:min_price] || Item.minimum(:price)
-    @max_price = params[:max_price] || Item.maximum(:price)
+    @min_price = params[:min_price] || format_price(Item.minimum(:price))
+    @max_price = params[:max_price] || format_price(Item.maximum(:price))
     @in_stock = params[:in_stock] == "true" ?  true : false
   end
 
@@ -17,6 +18,14 @@ class FilterForm
 
   def has_prices?
     @min_price.present? || @max_price.present?
+  end
+
+  def min_cents
+    Monetize.parse(@min_price).cents
+  end
+
+  def max_cents
+    Monetize.parse(@max_price).cents
   end
 
   private

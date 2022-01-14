@@ -6,21 +6,21 @@
 </div>
 
 <div>
-  <%= form_tag(items_path, method: :get) do %>
-    <%= label_tag("search", "Filter by Name") %>
-    <%= search_field_tag(:search, params[:search]) %>
-    <% @tags.each do |tag| %>
-      <%= label_tag(tag[:text]) %>
-      <%= check_box_tag("tags[]", tag[:id], tag[:active]) %>
+  <%= form_with model: @filter_form, url: items_path, method: :get do |f| %>
+    <%= f.label :search, "Filter by Name" %>
+    <%= f.search_field :search %>
+    <% @filter_form.tags.each do |tag| %>
+      <%= f.label tag[:text] %>
+      <%= f.check_box :tags, { multiple: true, checked: tag[:active] }, tag[:id], nil %>
     <% end %>
-    <%= label_tag("Price") %>
-    <%= label_tag(:min_price, "Minimum Price") %>
-    <%= text_field_tag(:min_price, format_price(@min_price)) %>
-    <%= label_tag(:max_price, "Maximum Price") %>
-    <%= text_field_tag(:max_price, format_price(@max_price)) %>
-    <%= label_tag("In Stock?") %>
-    <%= check_box_tag(:in_stock) %> <br>
-    <%= submit_tag ("Filter") %>
+    <%= f.label "Price" %>
+    <%= f.label :min_price, "Minimum Price" %>
+    <%= f.text_field :min_price %>
+    <%= f.label :max_price, "Maximum Price" %>
+    <%= f.text_field :max_price %>
+    <%= f.label "In Stock?" %>
+    <%= f.check_box :in_stock, {checked: @filter_form.in_stock}, true, false %>
+    <%= f.submit "Filter" %>
   <% end %>
   <%= link_to "Clear", items_path %>
 </div>

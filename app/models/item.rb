@@ -23,7 +23,7 @@ class Item < ApplicationRecord
   def self.in_price_range(min_price, max_price)
     where("price >= ? and price <= ?", min_price, max_price)
   end
-  
+
   def self.is_available
     where("quantity > ?", 0)
   end

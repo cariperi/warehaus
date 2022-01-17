@@ -1,0 +1,27 @@
+.items-page {
+  display: grid;
+  grid-template-columns: 1fr 7fr;
+  column-gap: 2rem;
+  grid-template-areas:
+    "left main"
+}
+
+.items-page aside {
+  grid-area: "left";
+  padding-left: 1rem;
+}
+
+.items-page main {
+  grid-area: "main";
+}
+
+.items-page table {
+  max-width: 80%;
+}
+
+.items-page form {
+  display: inline-block;
+}
+.items-page form .form-group {
+  margin-bottom: 0.25rem;
+}

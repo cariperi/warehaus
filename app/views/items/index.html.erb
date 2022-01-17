@@ -1,55 +1,69 @@
-<h1>Product Inventory</h1>
-<p>As of <%= format_time(Time.now) %></p>
-
-<div>
-  <%= link_to "Add New Item", new_item_path %>
-</div>
-
-<div>
-  <%= form_with model: @filter_form, url: items_path, method: :get do |f| %>
-    <%= f.label :search, "Filter by Name" %>
-    <%= f.search_field :search %>
-    <% @filter_form.tags.each do |tag| %>
-      <%= f.label tag[:text] %>
-      <%= f.check_box :tags, { multiple: true, checked: tag[:active] }, tag[:id], nil %>
-    <% end %>
-    <%= f.label "Price" %>
-    <%= f.label :min_price, "Minimum Price" %>
-    <%= f.text_field :min_price %>
-    <%= f.label :max_price, "Maximum Price" %>
-    <%= f.text_field :max_price %>
-    <%= f.label "In Stock?" %>
-    <%= f.check_box :in_stock, {checked: @filter_form.in_stock}, true, false %>
-    <%= f.submit "Filter" %>
-  <% end %>
-  <%= link_to "Clear", items_path %>
-</div>
-
-<div>
-  <table>
-    <thead>
-      <tr>
-        <th><%= sortable_column "name", "Item Name" %></th>
-        <th>UPC </th>
-        <th><%= sortable_column "quantity", "Quantity Available" %></th>
-        <th><%= sortable_column "price" %></th>
-        <th><%= sortable_column "weight" %></th>
-        <th>Description </th>
-        <th> </th>
-      </tr>
-    </thead>
-    <tbody>
-      <% @items.each do |item| %>
-        <tr>
-          <td><%= link_to item.name, item_path(item.id) %></td>
-          <td><%= item.upc %></td>
-          <td><%= item.quantity %></td>
-          <td><%= format_price(item.price) %></td>
-          <td><%= format_weight(item) %></td>
-          <td><%= item.description %></td>
-          <td><%= link_to "Edit", edit_item_path(item.id) %></td>
-        </tr>
+<div class="items-page">
+  <aside>
+    <div>
+      <%= form_with model: @filter_form, url: items_path, method: :get do |f| %>
+        <div class="form-group">
+          <%= f.label :search, "Filter by name" %>
+          <%= f.search_field :search %>
+        </div>
+        <div class="form-group">
+          <p><b>Filter by tag(s) </b></p>
+          <% @filter_form.tags.each do |tag| %>
+            <%= f.label tag[:text] %>
+            <%= f.check_box :tags, { multiple: true, checked: tag[:active] }, tag[:id], nil %>
+          <% end %>
+        </div>
+        <div class="form-group">
+          <%= f.label "Filter by price" %>
+          <%= f.label :min_price, "Minimum Price" %>
+          <%= f.text_field :min_price %>
+          <%= f.label :max_price, "Maximum Price" %>
+          <%= f.text_field :max_price %>
+        </div>
+        <div class="form-group">
+          <%= f.label "In Stock?" %>
+          <%= f.check_box :in_stock, {checked: @filter_form.in_stock}, true, false %>
+        </div>
+        <div class="form-group">
+          <%= f.submit "Filter" %>
+        </div>
       <% end %>
-    </tbody>
-  </table>
+      <%= link_to "Clear", items_path %>
+    </div>
+  </aside>
+  <main>
+    <h1>Product Inventory</h1>
+    <div>
+      <%= link_to "Add New Item", new_item_path %>
+    </div>
+    <p>As of <%= format_time(Time.now) %></p>
+    <div>
+      <table>
+        <thead>
+          <tr>
+            <th><%= sortable_column "name", "Item Name" %></th>
+            <th>UPC </th>
+            <th><%= sortable_column "quantity", "Quantity Available" %></th>
+            <th><%= sortable_column "price" %></th>
+            <th><%= sortable_column "weight" %></th>
+            <th>Description </th>
+            <th> </th>
+          </tr>
+        </thead>
+        <tbody>
+          <% @items.each do |item| %>
+            <tr>
+              <td><%= link_to item.name, item_path(item.id) %></td>
+              <td><%= item.upc %></td>
+              <td><%= item.quantity %></td>
+              <td><%= format_price(item.price) %></td>
+              <td><%= format_weight(item) %></td>
+              <td><%= item.description %></td>
+              <td><%= link_to "Edit", edit_item_path(item.id) %></td>
+            </tr>
+          <% end %>
+        </tbody>
+      </table>
+    </div>
+  </main>
 </div>

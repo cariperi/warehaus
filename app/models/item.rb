@@ -8,24 +8,13 @@ class Item < ApplicationRecord
   validates :quantity, numericality: { only_integer: true, greater_than_or_equal_to: 0 }
   validates :price, :weight, numericality: { only_integer: true, greater_than: 0 }
 
+  scope :with_tags, ->(tag_ids) { joins(:tags).where("tags.id in (?)", tag_ids).distinct }
+  scope :search_by_name, ->(search) { where("name ilike ?", "%#{search}%") }
+  scope :in_price_range,->(min_price, max_price) { where("price >= ? and price <= ?", min_price, max_price) }
+  scope :is_in_stock, -> { where("quantity > ?", 0) }
+
   def in_stock?
     quantity > 0
-  end
-
-  def self.with_tags(tag_ids)
-    joins(:tags).where("tags.id in (?)", tag_ids).distinct
-  end
-
-  def self.search_items(search)
-    where("name ilike ?", "%#{search}%")
-  end
-
-  def self.in_price_range(min_price, max_price)
-    where("price >= ? and price <= ?", min_price, max_price)
-  end
-
-  def self.is_available
-    where("quantity > ?", 0)
   end
 
   private

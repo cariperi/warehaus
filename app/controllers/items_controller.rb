@@ -13,9 +13,9 @@ class ItemsController < ApplicationController
     @items = Item.order(sort_column + ' ' + sort_direction)
     if filter_params
       @items = @items.with_tags(@filter_form.active_tags) if @filter_form.active_tags.present?
-      @items = @items.search_items(@filter_form.search) if @filter_form.search
+      @items = @items.search_by_name(@filter_form.search) if @filter_form.search
       @items = @items.in_price_range(@filter_form.min_cents, @filter_form.max_cents) if @filter_form.has_prices?
-      @items = @items.is_available if @filter_form.in_stock
+      @items = @items.is_in_stock if @filter_form.in_stock
     end
   end
 

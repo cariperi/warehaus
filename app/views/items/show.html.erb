@@ -1,16 +1,15 @@
 <h1>Item Profile</h1>
 
 <p><%= link_to "Edit Item", edit_item_path(@item.id) %></p>
-<p><%= button_to "Delete Item", @item, form: { data: {"turbo-confirm": "Are you sure you want to delete #{@item.name}?"}}, method: "delete" %></p>
 
 <ul class="unstyled_list">
-  <li>Name: <%= @item.name %></li>
-  <li>Description: <%= @item.description %></li>
-  <li>UPC: <%= @item.upc %></li>
-  <li>Weight: <%= format_weight(@item) %></li>
+  <li><b>Name:</b> <%= @item.name %></li>
+  <li><b>Description:</b> <%= @item.description %></li>
+  <li><b>UPC:</b> <%= @item.upc %></li>
+  <li><b>Weight:</b> <%= format_weight(@item) %></li>
 </ul>
 
-<h2>Sales Details</h2>
+<h3>Sales Details</h3>
   <% if @item.in_stock? %>
   <div style="color: green">
     <p>Item is currently in stock.</p>
@@ -21,8 +20,10 @@
   </div>
   <% end %>
 <ul class="unstyled_list">
-  <li>Quantity Available: <%= @item.quantity %></li>
-  <li>Price: <%= format_price(@item.price) %></li>
+  <li><b>Quantity Available:</b> <%= @item.quantity %></li>
+  <li><b>Price:</b> <%= format_price(@item.price) %></li>
 </ul>
+
+<p><%= button_to "Delete Item", @item, form: { data: {"turbo-confirm": "Are you sure you want to delete #{@item.name}?"}}, method: "delete" %></p>
 
 <p><%= link_to "Back to All Items", items_path %></p>

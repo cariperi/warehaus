@@ -12,6 +12,10 @@ With the current version of Warehaus, you can:
 
 This app was built for the Shopify Summer 2022 Backend Developer Internship Challenge submission.
 
+The app is live on Heroku here: [Warehaus](https://pacific-temple-47932.herokuapp.com/)
+
+To run the application locally, continue to follow the README below.
+
 ## Prerequisites
 
 You can use [rbenv](https://github.com/rbenv/rbenv) to manage the app's Ruby environment.
